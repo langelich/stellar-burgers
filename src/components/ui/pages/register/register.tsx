@@ -35,8 +35,9 @@ export const RegisterUI: FC<RegisterUIProps> = ({
               value={userName}
               name='name'
               error={false}
-              errorText=''
+              errorText={errorText}
               size='default'
+              required
             />
           </div>
           <div className='pb-6'>
@@ -46,9 +47,10 @@ export const RegisterUI: FC<RegisterUIProps> = ({
               onChange={(e) => setEmail(e.target.value)}
               value={email}
               name={'email'}
-              error={false}
-              errorText=''
+              error={!!errorText}
+              errorText={errorText}
               size={'default'}
+              required
             />
           </div>
           <div className='pb-6'>
@@ -56,6 +58,7 @@ export const RegisterUI: FC<RegisterUIProps> = ({
               onChange={(e) => setPassword(e.target.value)}
               value={password}
               name='password'
+              required
             />
           </div>
           <div className={`pb-6 ${styles.button}`}>
