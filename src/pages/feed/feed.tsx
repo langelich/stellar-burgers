@@ -3,7 +3,7 @@ import { FeedUI } from '@ui-pages';
 import { FC, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../services/store';
 import { getFeedsThunk } from '../../services/asyncThunks';
-import { selectOrders } from '../../services/slices/products-slice';
+import { selectOrders } from '../../services/slices/feed';
 
 export const Feed: FC = () => {
   const orders = useAppSelector(selectOrders);

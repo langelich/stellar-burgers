@@ -3,10 +3,10 @@ import { BurgerConstructorElementUI } from '@ui';
 import { BurgerConstructorElementProps } from './type';
 import { useAppDispatch } from '../../services/store';
 import {
-  moveUpIngredient,
+  deleteIngredient,
   moveDownIngredient,
-  deleteIngredient
-} from '../../services/slices/products-slice';
+  moveUpIngredient
+} from '../../services/slices/ingredientsInConstructor';
 
 export const BurgerConstructorElement: FC<BurgerConstructorElementProps> = memo(
   ({ ingredient, index, totalItems }) => {

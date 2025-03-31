@@ -2,15 +2,18 @@ import { FC, useMemo } from 'react';
 import { TIngredient } from '@utils-types';
 import { BurgerConstructorUI } from '@ui';
 import { useAppDispatch, useAppSelector } from '../../services/store';
-import {
-  closeModal,
-  selectIngredientsInConstructor,
-  selectOrderData,
-  selectOrderRequest
-} from '../../services/slices/products-slice';
 import { makeOrderBurgerThunk } from '../../services/asyncThunks';
 import { useNavigate } from 'react-router-dom';
 import { selectUserProfile } from '../../services/slices/user-slice';
+import {
+  cleanIngredientsInConstructor,
+  selectIngredientsInConstructor
+} from '../../services/slices/ingredientsInConstructor';
+import {
+  closeModal,
+  selectOrderData,
+  selectOrderRequest
+} from '../../services/slices/orders';
 
 export const BurgerConstructor: FC = () => {
   const ingredientsInConstructor = useAppSelector(
@@ -36,7 +39,9 @@ export const BurgerConstructor: FC = () => {
       const idsIngredients = ingredientsInConstructor.ingredients
         .map((item) => item._id)
         .concat(ingredientsInConstructor.bun!._id);
-      dispatch(makeOrderBurgerThunk(idsIngredients));
+      dispatch(makeOrderBurgerThunk(idsIngredients))
+        .unwrap()
+        .then(() => dispatch(cleanIngredientsInConstructor()));
     } else {
       navigate('/login');
     }

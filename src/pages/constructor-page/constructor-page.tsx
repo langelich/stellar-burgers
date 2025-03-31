@@ -6,9 +6,9 @@ import { BurgerIngredients } from '../../components';
 import { BurgerConstructor } from '../../components';
 import { Preloader } from '../../components/ui';
 import { FC, useEffect } from 'react';
-import { selectIsLoading } from '../../services/slices/products-slice';
 import { getIngredientsThunk } from '../../services/asyncThunks';
 import { useAppDispatch } from '../../services/store';
+import { selectIsLoading } from '../../services/slices/ingredients';
 
 export const ConstructorPage: FC = () => {
   const dispatch = useAppDispatch();

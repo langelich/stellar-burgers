@@ -10,12 +10,10 @@ import { TConstructorIngredient, TIngredient } from '@utils-types';
 import { BurgerConstructorElement, Modal } from '@components';
 import { Preloader, OrderDetailsUI } from '@ui';
 import { useAppDispatch, useAppSelector } from '../../../services/store';
-import productsSlice, {
-  addIngredientsInConstructor,
-  selectIsModalOpen
-} from '../../..//services/slices/products-slice';
 import { useDrop } from 'react-dnd';
-// import { useSelector } from '../../services/store';
+import { selectIsModalOpen } from '../../../services/slices/orders';
+import { addIngredientsInConstructor } from '../../../services/slices/ingredientsInConstructor';
+import { nanoid } from '@reduxjs/toolkit';
 
 export const BurgerConstructorUI: FC<BurgerConstructorUIProps> = ({
   constructorItems,
@@ -62,7 +60,7 @@ export const BurgerConstructorUI: FC<BurgerConstructorUIProps> = ({
                   ingredient={item}
                   index={index}
                   totalItems={constructorItems.ingredients.length}
-                  key={index}
+                  key={nanoid()}
                 />
               )
             )

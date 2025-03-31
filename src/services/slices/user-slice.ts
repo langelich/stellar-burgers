@@ -8,7 +8,6 @@ import {
   registerUserThunk,
   updateUserThunk
 } from '../asyncThunks';
-import { TRegisterData } from '@api';
 
 export interface userData {
   isLoading: boolean;
@@ -55,10 +54,7 @@ const userSlice = createSlice({
         state.error = action.error.message!;
       })
       .addCase(getUserThunk.fulfilled, (state, action) => {
-        // action.payload.user ?
         state.userProfile = action.payload.user;
-        // state.userProfile!.email = action.payload.user.email;
-        // state.userProfile!.name = action.payload.user.name;
         state.isLoading = false;
         state.isUserChecked = true;
       })
@@ -74,10 +70,7 @@ const userSlice = createSlice({
         state.error = action.error.message!;
       })
       .addCase(registerUserThunk.fulfilled, (state, action) => {
-        // state.userProfile!.email = action.payload.user.email;
-        // state.userProfile!.name = action.payload.user.name;
         state.userProfile = action.payload.user;
-
         state.isLoading = false;
         state.error = '';
         state.isUserChecked = true;
@@ -94,9 +87,6 @@ const userSlice = createSlice({
       })
       .addCase(loginUserThunk.fulfilled, (state, action) => {
         state.userProfile = action.payload.user;
-
-        // state.userProfile!.email = action.payload.user.email;
-        // state.userProfile!.name = action.payload.user.name;
         state.isLoading = false;
         state.error = '';
       })
@@ -112,8 +102,6 @@ const userSlice = createSlice({
       })
       .addCase(updateUserThunk.fulfilled, (state, action) => {
         state.userProfile = action.payload.user;
-        // state.userProfile!.email = action.payload.user.email;
-        // state.userProfile!.name = action.payload.user.name;
         state.isLoading = false;
         state.error = '';
       })
