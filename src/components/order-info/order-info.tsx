@@ -7,7 +7,7 @@ import { useParams } from 'react-router-dom';
 import { selectIngredients } from '../../services/slices/ingredients';
 import { selectOrders } from '../../services/slices/feed';
 import { selectUserOrders } from '../../services/slices/user-slice';
-import { getFeedsThunk } from '../../services/asyncThunks';
+import { getFeedsThunk, getOrdersThunk } from '../../services/asyncThunks';
 
 export const OrderInfo: FC = () => {
   const userOrders = useAppSelector(selectUserOrders);
@@ -24,6 +24,7 @@ export const OrderInfo: FC = () => {
 
   useEffect(() => {
     dispatch(getFeedsThunk());
+    dispatch(getOrdersThunk());
   }, []);
 
   /* Готовим данные для отображения */

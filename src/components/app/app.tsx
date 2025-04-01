@@ -27,11 +27,7 @@ import {
   ProtectedRoute
 } from '@components';
 import { useEffect } from 'react';
-import {
-  getIngredientsThunk,
-  getOrdersThunk,
-  getUserThunk
-} from '../../services/asyncThunks';
+import { getIngredientsThunk, getUserThunk } from '../../services/asyncThunks';
 import { useAppDispatch } from '../../services/store';
 import { checkUser } from '../../services/slices/user-slice';
 import { getCookie } from '../../utils/cookie';
