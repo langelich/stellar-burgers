@@ -1,16 +1,21 @@
 import { ProfileUI } from '@ui-pages';
 import { FC, SyntheticEvent, useEffect, useState } from 'react';
+import {
+  selectIsLoading,
+  selectUserProfile
+} from '../../services/slices/user-slice';
+import { useAppDispatch, useAppSelector } from '../../services/store';
+import { updateUserThunk } from '../../services/asyncThunks';
+import { Preloader } from '@ui';
 
 export const Profile: FC = () => {
-  /** TODO: взять переменную из стора */
-  const user = {
-    name: '',
-    email: ''
-  };
+  const user = useAppSelector(selectUserProfile);
+  const dispatch = useAppDispatch();
+  const isLoadingUpdate = useAppSelector(selectIsLoading);
 
   const [formValue, setFormValue] = useState({
-    name: user.name,
-    email: user.email,
+    name: user!.name,
+    email: user!.email,
     password: ''
   });
 
@@ -20,7 +25,7 @@ export const Profile: FC = () => {
       name: user?.name || '',
       email: user?.email || ''
     }));
-  }, [user]);
+  }, [setFormValue]);
 
   const isFormChanged =
     formValue.name !== user?.name ||
@@ -29,13 +34,17 @@ export const Profile: FC = () => {
 
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
+
+    dispatch(updateUserThunk(formValue))
+      .unwrap()
+      .catch((res) => res.error);
   };
 
   const handleCancel = (e: SyntheticEvent) => {
     e.preventDefault();
     setFormValue({
-      name: user.name,
-      email: user.email,
+      name: user!.name,
+      email: user!.email,
       password: ''
     });
   };
@@ -48,14 +57,18 @@ export const Profile: FC = () => {
   };
 
   return (
-    <ProfileUI
-      formValue={formValue}
-      isFormChanged={isFormChanged}
-      handleCancel={handleCancel}
-      handleSubmit={handleSubmit}
-      handleInputChange={handleInputChange}
-    />
+    <>
+      {isLoadingUpdate ? (
+        <Preloader />
+      ) : (
+        <ProfileUI
+          formValue={formValue}
+          isFormChanged={isFormChanged}
+          handleCancel={handleCancel}
+          handleSubmit={handleSubmit}
+          handleInputChange={handleInputChange}
+        />
+      )}
+    </>
   );
-
-  return null;
 };

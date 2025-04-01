@@ -1,21 +1,31 @@
-import { FC, useMemo } from 'react';
+import { FC, useEffect, useMemo } from 'react';
 import { Preloader } from '../ui/preloader';
 import { OrderInfoUI } from '../ui/order-info';
 import { TIngredient } from '@utils-types';
+import { useAppDispatch, useAppSelector } from '../../services/store';
+import { useParams } from 'react-router-dom';
+import { selectIngredients } from '../../services/slices/ingredients';
+import { selectOrders } from '../../services/slices/feed';
+import { selectUserOrders } from '../../services/slices/user-slice';
+import { getFeedsThunk, getOrdersThunk } from '../../services/asyncThunks';
 
 export const OrderInfo: FC = () => {
-  /** TODO: взять переменные orderData и ingredients из стора */
-  const orderData = {
-    createdAt: '',
-    ingredients: [],
-    _id: '',
-    status: '',
-    name: '',
-    updatedAt: 'string',
-    number: 0
-  };
+  const userOrders = useAppSelector(selectUserOrders);
+  const orders = useAppSelector(selectOrders);
+  const params = useParams();
+  const allOrders = [...orders, ...userOrders];
+  const dispatch = useAppDispatch();
 
-  const ingredients: TIngredient[] = [];
+  const orderData = allOrders.find((order) => {
+    if (order.number === parseInt(params.number!)) return order;
+  });
+
+  const ingredients = useAppSelector(selectIngredients);
+
+  useEffect(() => {
+    dispatch(getFeedsThunk());
+    dispatch(getOrdersThunk());
+  }, []);
 
   /* Готовим данные для отображения */
   const orderInfo = useMemo(() => {
