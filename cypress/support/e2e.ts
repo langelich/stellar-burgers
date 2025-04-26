@@ -15,3 +15,10 @@
 
 // Import commands.js using ES2015 syntax:
 import './commands'
+import ingredients from "../fixtures/ingredients.json";
+
+export const addIngredients = (itemId: string) => {
+    const ing = ingredients.data.find(item => item._id === itemId);
+    cy.get(`[data-cy=${itemId}] > button`).contains('Добавить').click();
+    cy.get('.constructor-element__row').contains(`${ing?.name}`);
+}

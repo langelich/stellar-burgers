@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -28,6 +32,8 @@
       "@selectors": ["src/services/selectors"]
     }
   },
-  "include": ["src", "cypress.d.ts"],
-  // "exclude": [ "node_modules" ]
+  "include": [
+    "src",
+    "cypress.d.ts"
+  ]
 }

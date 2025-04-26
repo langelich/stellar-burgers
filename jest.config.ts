@@ -6,10 +6,14 @@
 import type {Config} from 'jest';
 
 const config: Config = {
+  preset: 'ts-jest',
+
+  testEnvironment: 'jsdom',
+
   transform: {
     '\\.jsx?$': 'babel-jest',
     '^.+\\.tsx?$': 'ts-jest',
-    '.+\\.(css|styl|less|sass|scss)$': 'jest-css-modules-transform'
+    '.+\\.(css|styl|less|sass|scss)$': 'jest-css-modules-transform',
   },
 
   // All imported modules in your tests should be mocked automatically
@@ -19,7 +23,7 @@ const config: Config = {
   // bail: 0,
 
   // The directory where Jest should store its cached dependency information
-  // cacheDirectory: "C:\\Users\\angad\\AppData\\Local\\Temp\\jest",
+  // cacheDirectory:
 
   // Automatically clear mock calls, instances, contexts and results before every test
   // clearMocks: false,
@@ -96,9 +100,16 @@ const config: Config = {
   // ],
 
   // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
-  // moduleNameMapper: {},
-  // moduleNameMapper: {
-  // },
+  moduleNameMapper: {
+    "^@pages$": "<rootDir>/src/pages",
+    "^@components$": "<rootDir>/src/components",
+    "^@ui$": "<rootDir>/src/components/ui",
+    "^@ui-pages$": "<rootDir>/src/components/ui/pages",
+    "^@utils-types$": "<rootDir>/src/utils/types",
+    "^@api$": "<rootDir>/src/utils/burger-api.ts",
+    "^@slices$": "<rootDir>/src/services/slices",
+    "^@selectors$": "<rootDir>/src/services/selectors"
+  },
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
   // modulePathIgnorePatterns: [],
