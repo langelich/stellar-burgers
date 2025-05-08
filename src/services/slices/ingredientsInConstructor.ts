@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { TIngredient } from '@utils-types';
-import { arrayMoveImmutable } from 'array-move';
 
 export interface ingredientsInConstructorData {
   error: null | string;
@@ -33,17 +32,17 @@ const ingredientsInConstructorSlice = createSlice({
         : state.ingredientsInConstructor.ingredients.push(action.payload);
     },
     moveUpIngredient: (state, action: PayloadAction<number>) => {
-      state.ingredientsInConstructor.ingredients = arrayMoveImmutable(
-        state.ingredientsInConstructor.ingredients,
-        action.payload,
-        action.payload - 1
+      state.ingredientsInConstructor.ingredients.splice(
+        action.payload - 1,
+        0,
+        state.ingredientsInConstructor.ingredients.splice(action.payload, 1)[0]
       );
     },
     moveDownIngredient: (state, action: PayloadAction<number>) => {
-      state.ingredientsInConstructor.ingredients = arrayMoveImmutable(
-        state.ingredientsInConstructor.ingredients,
-        action.payload,
-        action.payload + 1
+      state.ingredientsInConstructor.ingredients.splice(
+        action.payload + 1,
+        0,
+        state.ingredientsInConstructor.ingredients.splice(action.payload, 1)[0]
       );
     },
     deleteIngredient: (state, action: PayloadAction<number>) => {

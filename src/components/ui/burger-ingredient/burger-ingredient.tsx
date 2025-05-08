@@ -25,6 +25,7 @@ export const BurgerIngredientUI: FC<TBurgerIngredientUIProps> = memo(
 
     return (
       <li
+        data-cy={ingredient._id}
         className={styles.container}
         ref={dragRef}
         style={{ opacity: isDrag ? 0.1 : 1 }}
